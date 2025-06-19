@@ -1,6 +1,25 @@
 import requests
 
-response = requests.get('https://jsonplaceholder.typicode.com/todos')
+response = requests.get('https://jsonplaceholder.typicode.com/todos/1')
+
+if response.status_code == 200:
+    print("Success")
+    print({"userId":response.json()['userId'], "id":response.json()['id'], "title":response.json()['title'], "completed":response.json()['completed']})
+else:
+    print("Failed to fetch API")
+
+params={"userId": 1}
+response = requests.get('https://jsonplaceholder.typicode.com/todos', params=params)
+if response.status_code == 200:
+    print("success")
+    for todo in response.json():
+        print({"userId":todo['userId'],
+               "id":todo['id'], 
+               "title":todo['title'], 
+               "completed":todo['completed']})
+        
+else: 
+    print("Failed to fetch API")
 
 print(response.status_code)
 print(response.json())
